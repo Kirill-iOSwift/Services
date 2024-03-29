@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ServicesViewController.swift
 //  Services
 //
 //  Created by Кирилл on 28.03.2024.
@@ -7,64 +7,106 @@
 
 import UIKit
 
-class ServicesViewController: UIViewController {
+//MARK: - class ServicesViewController
+
+final class ServicesViewController: UIViewController {
     
-    private let tableView = UITableView()
-    private var models = [Service]()
+    //MARK: Private Properties
+    
+    private let activityIndicatoe = UIActivityIndicatorView()
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private var services = [Service]()
+    
+    //MARK: Methods Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        set()
         fetchServise()
+        setupUI()
     }
-    func fetchServise() {
-        NetworkManager.shared.fetchService(url: UrlString.url.rawValue) { services in
-            self.models = services
-            self.tableView.reloadData()
+    
+    //MARK: Private Methods
+    
+    ///Метод загрузки данных сервисов
+    private func fetchServise() {
+        NetworkManager.shared.fetchService(url: Link.urlString.rawValue) { services in
+            self.services = services
+            self.tableView.reloadSections(.init(integer: 0), with: .fade)
+            self.activityIndicatoe.stopAnimating()
         }
     }
     
-    func set() {
+    ///Метод установки UI
+    private func setupUI() {
+        setupActivityIndicator()
+        setupView()
+        setupConstraint()
+    }
+    
+    ///Метод настройки активити индикатора
+    private func setupActivityIndicator() {
+        view.addSubview(activityIndicatoe)
+        activityIndicatoe.center = view.center
+        activityIndicatoe.style = .large
+        activityIndicatoe.startAnimating()
+        activityIndicatoe.hidesWhenStopped = true
+        activityIndicatoe.color = .black
+    }
+    
+    ///Метод настройки View
+    private func setupView() {
+        view.backgroundColor = .white
         
         title = "Services"
+        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         tableView.register(ServicesCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
-                
+        tableView.rowHeight = 100
+        tableView.separatorInset = .init(top: 0, left: 15, bottom: 0, right: 15)
+        tableView.bounces = false
+    }
+    
+    ///Метод настройки констрейнтов
+    private func setupConstraint() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
 
+//MARK: - TableView Protokols
+
 extension ServicesViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    ///Метод отображения колличества ячеек
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        models.count
+        services.count
     }
     
+    ///Метод настройки ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ServicesCell else { return UITableViewCell() }
-        
-        let model = models[indexPath.row]
+        let model = services[indexPath.row]
         cell.config(service: model)
-        
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Получить сервис по индексу
-        let service = models[indexPath.row]
-        
-        // Открыть ссылку на сервис в Safari
+    ///Метод задает исполнение по таппу на ячейку
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        ///Получить сервис по индексу
+        let service = services[indexPath.row]
+        ///Открыть ссылку на сервис в Safari или App
         if let url = URL(string: service.link) {
             UIApplication.shared.open(url)
+            
         }
     }
 }

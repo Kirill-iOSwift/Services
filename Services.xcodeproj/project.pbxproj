@@ -15,6 +15,7 @@
 		ED26008A2BB58D810098D495 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600892BB58D810098D495 /* NetworkManager.swift */; };
 		ED26008D2BB58DD00098D495 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED26008C2BB58DD00098D495 /* Model.swift */; };
 		ED2600922BB5C3B70098D495 /* ServicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600912BB5C3B70098D495 /* ServicesCell.swift */; };
+		ED2600982BB6EE2E0098D495 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600972BB6EE2E0098D495 /* NetworkImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		ED2600892BB58D810098D495 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		ED26008C2BB58DD00098D495 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		ED2600912BB5C3B70098D495 /* ServicesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCell.swift; sourceTree = "<group>"; };
+		ED2600972BB6EE2E0098D495 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +65,7 @@
 				ED2600842BB58CD20098D495 /* Applications */,
 				ED2600872BB58D3D0098D495 /* ViewControllers */,
 				ED26008B2BB58DB00098D495 /* Models */,
-				ED2600882BB58D560098D495 /* Helpers */,
+				ED2600882BB58D560098D495 /* Managers */,
 				ED2600862BB58D2D0098D495 /* Resourses */,
 				ED2600852BB58D140098D495 /* LaunchScreen */,
 			);
@@ -105,12 +107,13 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		ED2600882BB58D560098D495 /* Helpers */ = {
+		ED2600882BB58D560098D495 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				ED2600892BB58D810098D495 /* NetworkManager.swift */,
+				ED2600972BB6EE2E0098D495 /* NetworkImage.swift */,
 			);
-			path = Helpers;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		ED26008B2BB58DB00098D495 /* Models */ = {
@@ -204,6 +207,7 @@
 				ED2600752BB58AAB0098D495 /* ServicesViewController.swift in Sources */,
 				ED2600712BB58AAB0098D495 /* AppDelegate.swift in Sources */,
 				ED2600732BB58AAB0098D495 /* SceneDelegate.swift in Sources */,
+				ED2600982BB6EE2E0098D495 /* NetworkImage.swift in Sources */,
 				ED2600922BB5C3B70098D495 /* ServicesCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

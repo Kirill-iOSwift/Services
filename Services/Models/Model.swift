@@ -7,19 +7,7 @@
 
 import Foundation
 
-struct Service: Decodable {
-    let name: String
-    let description: String
-    let link: String
-    let iconUrl: String
-
-    enum CodingKeys: String, CodingKey {
-        case name
-        case description
-        case link
-        case iconUrl = "icon_url"
-    }
-}
+//MARK: - Models JSON
 
 struct Response: Decodable {
     let body: Body
@@ -28,4 +16,20 @@ struct Response: Decodable {
 
 struct Body: Decodable {
     let services: [Service]
+}
+
+//MARK: Model View
+
+struct Service: Decodable {
+    let name: String
+    let description: String
+    let link: String
+    let iconUrl: URL
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case description
+        case link
+        case iconUrl = "icon_url"
+    }
 }

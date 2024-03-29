@@ -7,14 +7,22 @@
 
 import Foundation
 
-enum UrlString: String {
-    case url = "https://publicstorage.hb.bizmrg.com/sirius/result.json"
+//MARK: - enum Link (base url)
+
+enum Link: String {
+    case urlString = "https://publicstorage.hb.bizmrg.com/sirius/result.json"
 }
 
-class NetworkManager {
-    static let shared = NetworkManager()
+//MARK: - class NetworkManager
+
+final class NetworkManager {
     
+    //MARK: Properties
+    
+    static let shared = NetworkManager()
     private init() {}
+    
+    //MARK: Methods
     
     func fetchService(url: String, completion: @escaping([Service]) -> Void) {
         guard let url = URL(string: url) else { return }
@@ -34,16 +42,4 @@ class NetworkManager {
             }
         }.resume()
     }
-    
-    func fetchImage(from url: String, completion: @escaping(Data) -> Void) {
-        guard let url = URL(string: url) else { return }
-        DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-                completion(imageData)
-            }
-        }
-    }
-    
 }
-

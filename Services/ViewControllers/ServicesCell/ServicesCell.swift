@@ -7,9 +7,11 @@
 
 import UIKit
 
-class ServicesCell: UITableViewCell {
+//MARK: - class ServicesCell
+
+final class ServicesCell: UITableViewCell {
    
-    private var imageData: UIImageView!
+    //MARK: - Methods
     
     func config(service: Service) {
         var content = defaultContentConfiguration()
@@ -17,14 +19,12 @@ class ServicesCell: UITableViewCell {
         content.secondaryText = service.description
         content.imageProperties.maximumSize = CGSize(width: 70, height: 70)
         content.secondaryTextProperties.numberOfLines = 2
-        content.image = UIImage(systemName: "photo")
-        
-        NetworkManager.shared.fetchImage(from: service.iconUrl) { data in
-            content.image = UIImage(data: data)
-            self.contentConfiguration = content
+       
+        NetworkImage.shared.loadImage(url: service.iconUrl) { image in
+            DispatchQueue.main.async {
+                content.image = image
+                self.contentConfiguration = content
+            }
         }
-        
-        contentConfiguration = content
-        
     }
 }
