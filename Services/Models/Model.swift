@@ -11,7 +11,7 @@ struct Service: Decodable {
     let name: String
     let description: String
     let link: String
-    let iconUrl: URL
+    let iconUrl: String
 
     enum CodingKeys: String, CodingKey {
         case name

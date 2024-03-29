@@ -10,29 +10,30 @@ import UIKit
 class ServicesViewController: UIViewController {
     
     private let tableView = UITableView()
-    
     private var models = [Service]()
     
-    private let networkManager = NetworkManager()
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkManager.getModels()
         view.backgroundColor = .white
         set()
-        
+        fetchServise()
     }
-    
+    func fetchServise() {
+        NetworkManager.shared.fetchService(url: UrlString.url.rawValue) { services in
+            self.models = services
+            self.tableView.reloadData()
+        }
+    }
     
     func set() {
         
+        title = "Services"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ServicesCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
-        networkManager.deligate = self
-        
-        
+                
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -48,34 +49,22 @@ extension ServicesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ServicesCell else { return UITableViewCell() }
+        
+        let model = models[indexPath.row]
+        cell.config(service: model)
         
         cell.accessoryType = .disclosureIndicator
-        let number = models[indexPath.row]
-        let image = ImageManager.shared.fetchImageData(from: number.iconUrl)
-        var content = cell.defaultContentConfiguration()
-        
-        content.text = number.name
-        content.secondaryText = number.description
-        content.secondaryTextProperties.numberOfLines = 2
-        content.image = UIImage(data: image!)
-        content.imageProperties.maximumSize = CGSize(width: 70, height: 70)
-        
-        cell.contentConfiguration = content
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-    }
-}
-
-extension ServicesViewController: UpdateDataDelegateProtocol {
-    func updateData(model: [Service]) {
-        DispatchQueue.main.async {
-            self.models = model
-            self.tableView.reloadData()
-            print(self.models.count)
+   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Получить сервис по индексу
+        let service = models[indexPath.row]
+        
+        // Открыть ссылку на сервис в Safari
+        if let url = URL(string: service.link) {
+            UIApplication.shared.open(url)
         }
     }
 }

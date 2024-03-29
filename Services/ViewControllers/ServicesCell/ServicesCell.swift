@@ -9,12 +9,22 @@ import UIKit
 
 class ServicesCell: UITableViewCell {
    
-//            var content = defaultContentConfiguration()
-//            content.text = viewModel.serviceName
-//            guard let imageData = viewModel.imageData else { return }
-//            content.image = UIImage(data: imageData)
-//            content.imageProperties.maximumSize = CGSize(width: 50, height: 50)
-//            content.secondaryText = viewModel.description
-//            contentConfiguration = content
+    private var imageData: UIImageView!
+    
+    func config(service: Service) {
+        var content = defaultContentConfiguration()
+        content.text = service.name
+        content.secondaryText = service.description
+        content.imageProperties.maximumSize = CGSize(width: 70, height: 70)
+        content.secondaryTextProperties.numberOfLines = 2
+        content.image = UIImage(systemName: "photo")
         
+        NetworkManager.shared.fetchImage(from: service.iconUrl) { data in
+            content.image = UIImage(data: data)
+            self.contentConfiguration = content
+        }
+        
+        contentConfiguration = content
+        
+    }
 }

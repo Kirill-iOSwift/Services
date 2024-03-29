@@ -7,38 +7,43 @@
 
 import Foundation
 
-protocol UpdateDataDelegateProtocol {
-    func updateData(model: [Service])
+enum UrlString: String {
+    case url = "https://publicstorage.hb.bizmrg.com/sirius/result.json"
 }
 
 class NetworkManager {
-
-    var deligate: UpdateDataDelegateProtocol?
-
-    func getModels() {
-        let url = "https://publicstorage.hb.bizmrg.com/sirius/result.json"
-        getUrl(url: url)
-    }
-
-
-    func getUrl(url: String) {
-        if let url = URL(string: url) {
-            print(url)
-            let task = URLSession.shared.dataTask(with: url) { (data, responce, error) in
-                //                guard error != nil  else { return }
-                if let safeData = data {
-                    print(data!)
-                    if let servicesData = try? JSONDecoder().decode(Response.self, from: safeData) {
-                        
-                        let models = servicesData.body.services
-                        print(models.count)
-                        self.deligate?.updateData(model: models)
-                    }
-                }
+    static let shared = NetworkManager()
+    
+    private init() {}
+    
+    func fetchService(url: String, completion: @escaping([Service]) -> Void) {
+        guard let url = URL(string: url) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                return
             }
-            task.resume()
+            do {
+                let type = try JSONDecoder().decode(Response.self, from: data)
+                DispatchQueue.main.async {
+                    let services = type.body.services
+                    completion(services)
+                }
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func fetchImage(from url: String, completion: @escaping(Data) -> Void) {
+        guard let url = URL(string: url) else { return }
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async {
+                completion(imageData)
+            }
         }
     }
+    
 }
-
 
