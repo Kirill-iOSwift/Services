@@ -1,5 +1,5 @@
 //
-//  ServicesViewController.swift
+//  ServiceViewController.swift
 //  Services
 //
 //  Created by Кирилл on 28.03.2024.
@@ -9,12 +9,15 @@ import UIKit
 
 //MARK: - class ServicesViewController
 
-final class ServicesViewController: UIViewController {
+final class ServiceViewController: UIViewController {
     
     //MARK: Private Properties
     
-    private let activityIndicatoe = UIActivityIndicatorView()
+    ///Активити индикатор
+    private let activityIndicator = UIActivityIndicatorView()
+    ///Таблица
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    ///Массив с сервисами (получены из сети)
     private var services = [Service]()
     
     //MARK: Methods Life Cycle
@@ -32,7 +35,7 @@ final class ServicesViewController: UIViewController {
         NetworkManager.shared.fetchService(url: Link.urlString.rawValue) { services in
             self.services = services
             self.tableView.reloadSections(.init(integer: 0), with: .fade)
-            self.activityIndicatoe.stopAnimating()
+            self.activityIndicator.stopAnimating()
         }
     }
     
@@ -45,23 +48,23 @@ final class ServicesViewController: UIViewController {
     
     ///Метод настройки активити индикатора
     private func setupActivityIndicator() {
-        view.addSubview(activityIndicatoe)
-        activityIndicatoe.center = view.center
-        activityIndicatoe.style = .large
-        activityIndicatoe.startAnimating()
-        activityIndicatoe.hidesWhenStopped = true
-        activityIndicatoe.color = .black
+        view.addSubview(activityIndicator)
+        activityIndicator.center = view.center
+        activityIndicator.style = .large
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .black
     }
     
     ///Метод настройки View
     private func setupView() {
         view.backgroundColor = .white
-        
         title = "Services"
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        tableView.register(ServicesCell.self, forCellReuseIdentifier: "cell")
+        
+        tableView.register(ServiceCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 100
@@ -82,7 +85,7 @@ final class ServicesViewController: UIViewController {
 
 //MARK: - TableView Protokols
 
-extension ServicesViewController: UITableViewDelegate, UITableViewDataSource {
+extension ServiceViewController: UITableViewDelegate, UITableViewDataSource {
     
     ///Метод отображения колличества ячеек
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,7 +94,7 @@ extension ServicesViewController: UITableViewDelegate, UITableViewDataSource {
     
     ///Метод настройки ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ServicesCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ServiceCell else { return UITableViewCell() }
         let model = services[indexPath.row]
         cell.config(service: model)
         cell.accessoryType = .disclosureIndicator
@@ -100,6 +103,7 @@ extension ServicesViewController: UITableViewDelegate, UITableViewDataSource {
     
     ///Метод задает исполнение по таппу на ячейку
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        ///Отключам выделени ячейки
         tableView.deselectRow(at: indexPath, animated: true)
         ///Получить сервис по индексу
         let service = services[indexPath.row]

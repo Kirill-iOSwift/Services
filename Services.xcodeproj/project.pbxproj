@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		ED2600712BB58AAB0098D495 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600702BB58AAB0098D495 /* AppDelegate.swift */; };
 		ED2600732BB58AAB0098D495 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600722BB58AAB0098D495 /* SceneDelegate.swift */; };
-		ED2600752BB58AAB0098D495 /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600742BB58AAB0098D495 /* ServicesViewController.swift */; };
+		ED2600752BB58AAB0098D495 /* ServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600742BB58AAB0098D495 /* ServiceViewController.swift */; };
 		ED26007A2BB58AAF0098D495 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED2600792BB58AAF0098D495 /* Assets.xcassets */; };
 		ED26007D2BB58AAF0098D495 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED26007B2BB58AAF0098D495 /* LaunchScreen.storyboard */; };
 		ED26008A2BB58D810098D495 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600892BB58D810098D495 /* NetworkManager.swift */; };
 		ED26008D2BB58DD00098D495 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED26008C2BB58DD00098D495 /* Model.swift */; };
-		ED2600922BB5C3B70098D495 /* ServicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600912BB5C3B70098D495 /* ServicesCell.swift */; };
+		ED2600922BB5C3B70098D495 /* ServiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600912BB5C3B70098D495 /* ServiceCell.swift */; };
 		ED2600982BB6EE2E0098D495 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2600972BB6EE2E0098D495 /* NetworkImage.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,13 +22,13 @@
 		ED26006D2BB58AAB0098D495 /* Services.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Services.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED2600702BB58AAB0098D495 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED2600722BB58AAB0098D495 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		ED2600742BB58AAB0098D495 /* ServicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
+		ED2600742BB58AAB0098D495 /* ServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewController.swift; sourceTree = "<group>"; };
 		ED2600792BB58AAF0098D495 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED26007C2BB58AAF0098D495 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED26007E2BB58AAF0098D495 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED2600892BB58D810098D495 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		ED26008C2BB58DD00098D495 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		ED2600912BB5C3B70098D495 /* ServicesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesCell.swift; sourceTree = "<group>"; };
+		ED2600912BB5C3B70098D495 /* ServiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCell.swift; sourceTree = "<group>"; };
 		ED2600972BB6EE2E0098D495 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,8 +101,8 @@
 		ED2600872BB58D3D0098D495 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				ED2600742BB58AAB0098D495 /* ServicesViewController.swift */,
-				ED26008E2BB5C3430098D495 /* ServicesCell */,
+				ED2600742BB58AAB0098D495 /* ServiceViewController.swift */,
+				ED26008E2BB5C3430098D495 /* ServiceCell */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -124,12 +124,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		ED26008E2BB5C3430098D495 /* ServicesCell */ = {
+		ED26008E2BB5C3430098D495 /* ServiceCell */ = {
 			isa = PBXGroup;
 			children = (
-				ED2600912BB5C3B70098D495 /* ServicesCell.swift */,
+				ED2600912BB5C3B70098D495 /* ServiceCell.swift */,
 			);
-			path = ServicesCell;
+			path = ServiceCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,11 +204,11 @@
 			files = (
 				ED26008D2BB58DD00098D495 /* Model.swift in Sources */,
 				ED26008A2BB58D810098D495 /* NetworkManager.swift in Sources */,
-				ED2600752BB58AAB0098D495 /* ServicesViewController.swift in Sources */,
+				ED2600752BB58AAB0098D495 /* ServiceViewController.swift in Sources */,
 				ED2600712BB58AAB0098D495 /* AppDelegate.swift in Sources */,
 				ED2600732BB58AAB0098D495 /* SceneDelegate.swift in Sources */,
 				ED2600982BB6EE2E0098D495 /* NetworkImage.swift in Sources */,
-				ED2600922BB5C3B70098D495 /* ServicesCell.swift in Sources */,
+				ED2600922BB5C3B70098D495 /* ServiceCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
