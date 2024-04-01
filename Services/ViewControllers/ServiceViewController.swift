@@ -32,7 +32,8 @@ final class ServiceViewController: UIViewController {
     
     ///Метод загрузки данных сервисов
     private func fetchServise() {
-        NetworkManager.shared.fetchService(url: Link.urlString.rawValue) { services in
+        NetworkManager.shared.fetchService(url: Link.urlString.rawValue) { [weak self] services in
+            guard let self = self else { return }
             self.services = services
             self.tableView.reloadSections(.init(integer: 0), with: .fade)
             self.activityIndicator.stopAnimating()
@@ -94,7 +95,8 @@ extension ServiceViewController: UITableViewDelegate, UITableViewDataSource {
     
     ///Метод настройки ячейки
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ServiceCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell", for: indexPath) as? ServiceCell else { return UITableViewCell() }
         let model = services[indexPath.row]
         cell.config(service: model)
         cell.accessoryType = .disclosureIndicator

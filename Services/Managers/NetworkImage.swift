@@ -30,14 +30,17 @@ final class NetworkImage {
             completion(cachedImage)
         } else {
             ///Создаем задачу если нет картинки в кэше
-            URLSession.shared.dataTask(with: url) { data, response, error in
+            URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
                 guard let data = data, let image = UIImage(data: data) else {
                     completion(nil)
                     return
                 }
                 ///Добавляем в кэш и возвращаем
-                self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
-                completion(image)
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    self.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                    completion(image)
+                }
             }.resume()
         }
     }

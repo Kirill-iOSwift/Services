@@ -22,11 +22,10 @@ final class ServiceCell: UITableViewCell {
         content.imageProperties.maximumSize = CGSize(width: 70, height: 70)
         content.secondaryTextProperties.numberOfLines = 2
        
-        NetworkImage.shared.fetchImage(url: service.iconUrl) { image in
-            DispatchQueue.main.async {
-                content.image = image
-                self.contentConfiguration = content
-            }
+        NetworkImage.shared.fetchImage(url: service.iconUrl) { [weak self] image in
+            guard let self = self else { return }
+            content.image = image
+            self.contentConfiguration = content
         }
     }
 }
